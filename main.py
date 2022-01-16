@@ -11,10 +11,11 @@ class MyWidget(QMainWindow):
         uic.loadUi('UI.ui', self)
         self.btn.clicked.connect(self.draw)
         self.t = False
+        self.r = []
 
     def draw(self):
         self.t = True
-        self.op = random.randint(0, 300)
+        self.update()
 
     def paintEvent(self, event):
         if self.t:
@@ -25,8 +26,11 @@ class MyWidget(QMainWindow):
 
     def draw_flag(self, qp):
         qp.setBrush(QColor(255, 255, 0))
-        qp.drawEllipse(0, 0, self.op, self.op)
-        self.update()
+        x = randint(0, 100)
+        self.r.append([randint(0, 380), randint(0, 320), x, x])
+        for i in self.r:
+            qp.drawEllipse(*i)
+        self.t = False
 
 
 if __name__ == '__main__':
